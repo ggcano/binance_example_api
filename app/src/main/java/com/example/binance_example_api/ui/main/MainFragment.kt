@@ -8,25 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.binance_example_api.Repo
-import com.example.binance_example_api.adapter.DataAdapter
+import com.example.binance_example_api.network.Repo
+import com.example.binance_example_api.ui.adapter.DataAdapter
 import com.example.binance_example_api.databinding.MainFragmentBinding
 import com.example.binance_example_api.network.RetrofitService
 
 class MainFragment : Fragment() {
-    //https://api2.binance.com/api/v3/ticker/24hr
-    private val adapterBinance = DataAdapter()
 
-    companion object {
-        fun newInstance() = MainFragment()
-        val retrofitService = RetrofitService.getInstance()
-        val mainRepository = retrofitService?.let { Repo(it) }
-    }
+    private val adapterBinance = DataAdapter()
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var viewModel: MainViewModel
 
+    companion object {
+        fun newInstance() = MainFragment()
+        private val retrofitService = RetrofitService.getInstance()
+        val mainRepository = retrofitService?.let { Repo(it) }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,18 +47,18 @@ class MainFragment : Fragment() {
     private fun observables(){
         viewModel.getBinance()
         viewModel.responseListMLD.observe(viewLifecycleOwner, Observer { response ->
-            if (response?.isSuccessful == true) {
-          adapterBinance.setListBinance(response.body()!!.toMutableList())
+            if (response.isSuccessful) {
+                response.body()?.let { adapterBinance.setListBinance(it) }
             }else{
-                println("error")
+                println("error in response from Retrofit")
             }
         })
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         binding.recyclerMain.apply {
             layoutManager = LinearLayoutManager(context)
-           adapter = adapterBinance
+            adapter = adapterBinance
         }
     }
 

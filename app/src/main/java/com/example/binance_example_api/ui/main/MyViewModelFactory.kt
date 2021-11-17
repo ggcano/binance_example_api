@@ -2,7 +2,7 @@ package com.example.binance_example_api.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.binance_example_api.Repo
+import com.example.binance_example_api.network.Repo
 
 class MyViewModelFactory constructor(private val repository: Repo): ViewModelProvider.Factory {
 

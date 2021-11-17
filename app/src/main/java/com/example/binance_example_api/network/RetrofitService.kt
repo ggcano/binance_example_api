@@ -1,8 +1,5 @@
 package com.example.binance_example_api.network
-
-import com.example.binance_example_api.data.BinanceDTO
 import com.example.binance_example_api.data.BinanceItemDTO
-import com.example.binance_example_api.data.ListResultDTO
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -10,6 +7,8 @@ import retrofit2.http.GET
 import retrofit2.http.Url
 
 interface RetrofitService {
+
+    //full link =  //https://api2.binance.com/api/v3/ticker/24hr
 
     @GET
     suspend fun getListBinance (@Url url:String): Response<List<BinanceItemDTO>>
