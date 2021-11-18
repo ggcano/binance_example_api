@@ -32,7 +32,9 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.MainViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class MainViewHolder(val binding: ItemViewBinding) : RecyclerView.ViewHolder(binding.root)
+    class MainViewHolder(val binding: ItemViewBinding) : RecyclerView.ViewHolder(binding.root){
+
+    }
 
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {

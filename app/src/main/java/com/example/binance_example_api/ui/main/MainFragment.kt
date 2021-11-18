@@ -18,7 +18,6 @@ class MainFragment : Fragment() {
     private val adapterBinance = DataAdapter()
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var viewModel: MainViewModel
 
     companion object {
@@ -32,7 +31,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
-        setupRecyclerView()
+        binding.recyclerMain.veil()
         return binding.root
     }
 
@@ -41,7 +40,6 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this, MyViewModelFactory(mainRepository!!))[MainViewModel::class.java]
         setupRecyclerView()
         observables()
-
     }
 
     private fun observables(){
@@ -49,6 +47,7 @@ class MainFragment : Fragment() {
         viewModel.responseListMLD.observe(viewLifecycleOwner, Observer { response ->
             if (response.isSuccessful) {
                 response.body()?.let { adapterBinance.setListBinance(it) }
+                binding.recyclerMain.unVeil()
             }else{
                 println("error in response from Retrofit")
             }
@@ -57,13 +56,16 @@ class MainFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.recyclerMain.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = adapterBinance
+            setAdapter(adapterBinance) // sets your own adapter
+            setLayoutManager(LinearLayoutManager(context)) // sets LayoutManager
+            addVeiledItems(15)
+
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.recyclerMain.unVeil()
         _binding = null
     }
 

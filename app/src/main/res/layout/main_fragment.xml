@@ -5,14 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_500"
     tools:context=".ui.main.MainFragment">
 
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.skydoves.androidveil.VeilRecyclerFrameView
         android:id="@+id/recycler_main"
-        android:orientation="vertical"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
@@ -21,5 +19,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:veilFrame_veiled="true"
+        app:veilFrame_shimmerEnable="true"
+        app:veilFrame_baseColor="@android:color/darker_gray"
+        app:veilFrame_highlightColor="@color/teal_700"
+        app:veilFrame_baseAlpha="0.4"
+        app:veilFrame_highlightAlpha="1.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:veilFrame_layout="@layout/item_view"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
