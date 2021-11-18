@@ -56,8 +56,8 @@ class MainFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.recyclerMain.apply {
-            setAdapter(adapterBinance) // sets your own adapter
-            setLayoutManager(LinearLayoutManager(context)) // sets LayoutManager
+            setAdapter(adapterBinance)
+            setLayoutManager(LinearLayoutManager(context))
             addVeiledItems(15)
 
         }
